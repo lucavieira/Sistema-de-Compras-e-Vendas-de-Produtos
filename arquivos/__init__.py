@@ -16,3 +16,15 @@ def cria_arquivo(arquivo):
         print('Erro ao criar arquivo')
     else:
         print('Arquivo criado com Sucesso')
+        file.close()
+        try:
+            file = open(arquivo, 'at')
+        except:
+            print('Erro ao abrir arquivo')
+        else:
+            if arquivo == 'produtos.csv':
+                file.write('Nome,Preco,Quantidade\n')
+                file.close()
+            else:
+                file.write('Nome,CPF,Senha,Cargo\n')
+                file.close()
