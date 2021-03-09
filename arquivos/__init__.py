@@ -27,4 +27,5 @@ def cria_arquivo(arquivo):
                 file.close()
             else:
                 file.write('Nome,CPF,Senha,Cargo\n')
+                file.write('Lucas,62028011319,admin_lucas,Admin\n')
                 file.close()

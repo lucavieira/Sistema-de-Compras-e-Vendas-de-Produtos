@@ -1,5 +1,5 @@
 class Funcionarios(object):
-    def __init__(self, nome, cpf, senha, cargo):
+    def __init__(self, nome='', cpf='', senha='', cargo=''):
         self.nome = nome
         self.cpf = cpf
         self.senha = senha

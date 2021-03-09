@@ -1,5 +1,5 @@
 class Produtos(object):
-    def __init__(self, nome_produto, preco_produto, quantidade_produto):
+    def __init__(self, nome_produto='', preco_produto='', quantidade_produto=''):
         self.nome_produto = nome_produto
         self.preco_produto = preco_produto
         self.quantidade_produto = quantidade_produto
