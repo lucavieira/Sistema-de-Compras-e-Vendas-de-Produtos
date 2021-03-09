@@ -4,6 +4,7 @@ class Produtos(object):
         self.preco_produto = preco_produto
         self.quantidade_produto = quantidade_produto
 
+    # Cadastra o produto no arquivo .csv
     def cadastro(self, arquivo):
         try:
             file = open(arquivo, 'at')
@@ -18,6 +19,7 @@ class Produtos(object):
                 print(f'{self.nome_produto} cadastrado com sucesso!')
                 file.close()
 
+    # Lê o arquivo .csv e mostra os produtos
     def mostrar_produtos(self, arquivo):
         try:
             file = open(arquivo, 'rt')

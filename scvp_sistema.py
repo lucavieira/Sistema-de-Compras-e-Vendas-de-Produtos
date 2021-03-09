@@ -38,7 +38,7 @@ while True:
             funcionario = Funcionarios(nome, cpf, senha, cargo)
             funcionario.cadastro(arquivos['arquivo_funcionarios'])
             print('-' * 35)
-        elif menu_adm == 'SAIR':
+        else:
             print('-' * 35)
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
@@ -74,3 +74,4 @@ while True:
             else:
                 print(f'\033[31m{"ATÉ A PROXIMA".center(36)}\033[m')
                 print('-' * 35)
+                break

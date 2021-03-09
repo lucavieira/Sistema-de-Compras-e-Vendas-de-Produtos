@@ -1,16 +1,19 @@
 import csv
 
 
+# Pega os dados dos funcionarios
 def dados_funcionarios():
     with open('funcionarios.csv') as funcionario:
         return [dado_funcionario for dado_funcionario in csv.DictReader(funcionario)]
 
 
+# Pega os dados dos produtos
 def dados_produtos():
     with open('produtos.csv') as produtos:
         return [dado_produto for dado_produto in csv.DictReader(produtos)]
 
 
+# Verifica o login, se é admin ou vendedor
 def verifica_login(dados, nome, senha):
     for funcionario in dados:
         if funcionario['Nome'] == nome and funcionario['Senha'] == senha and funcionario['Cargo'] == 'Admin':
@@ -19,6 +22,7 @@ def verifica_login(dados, nome, senha):
             return False
 
 
+# Verifica se o produto está cadastrado e se tem quantidade
 def existe_produto(dados, nome_produto):
     for produto in dados:
         if produto['Nome'] == nome_produto and int(produto['Quantidade']) > 0:
@@ -29,6 +33,7 @@ def existe_produto(dados, nome_produto):
             return False, nome_produto
 
 
+# Mostra o valor total das compras de um cliente
 def mostrar_total(carrinho):
     total = 0
     print(f'\033[31m{"TOTAL".center(35)}\033[m')
@@ -39,6 +44,7 @@ def mostrar_total(carrinho):
     print('-' * 35)
 
 
+# Mostra o carrinho de compras, quais produtos foram adicionados
 def mostrar_carrinho(carrinho):
     print(f'\033[31m{"CARRINHO".center(36)}\033[m')
     print('-' * 35)
@@ -47,6 +53,7 @@ def mostrar_carrinho(carrinho):
     print('-' * 35)
 
 
+# Remove algum produto do carrinho de compras
 def remove_produto(carrinho, produto_removido):
     for chave, produto in enumerate(carrinho):
         if produto['Nome'] == produto_removido:
@@ -55,6 +62,7 @@ def remove_produto(carrinho, produto_removido):
             return True, chave
 
 
+# Menu para Logar no sistema como admin ou vendedor
 def menu_login():
     print('-' * 35)
     print(f'{"LOGIN".center(35)}')
@@ -65,6 +73,7 @@ def menu_login():
     return nome, senha
 
 
+# Menu com as opções de admin e vendedor
 def menu_funcionario(*opcoes):
     for opcao in opcoes:
         print(opcao)

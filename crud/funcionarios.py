@@ -5,6 +5,7 @@ class Funcionarios(object):
         self.senha = senha
         self.cargo = cargo
 
+    # Cadastra um funcionario no arquivo .csv
     def cadastro(self, arquivo):
         try:
             file = open(arquivo,  'at')
@@ -19,6 +20,7 @@ class Funcionarios(object):
                 print(f'{self.nome} cadastrado com sucesso!')
                 file.close()
 
+    # Lê o arquivo .csv e mostra todos funcionarios cadastrados
     def mostrar_funcionarios(self, arquivo):
         try:
             file = open(arquivo, 'rt')
