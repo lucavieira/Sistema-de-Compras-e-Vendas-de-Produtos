@@ -1,5 +1,5 @@
 class Funcionarios(object):
-    def __init__(self, nome='', cpf='', senha='', cargo=''):
+    def __init__(self, nome='', cpf=00000, senha='', cargo=''):
         self.nome = nome
         self.cpf = cpf
         self.senha = senha
@@ -25,9 +25,8 @@ class Funcionarios(object):
         except:
             print('Erro ao ler arquivo')
         else:
-            print('-' * 30)
-            print(f'{"LISTA DE FUNCIONARIOS".center(30)}')
-            print('-' * 30)
+            print(f'\033[31m{"LISTA DE FUNCIONARIOS".center(35)}\033[m')
+            print('-' * 35)
             print(file.read(), end='')
-            print('-' * 30)
+            print('-' * 35)
             file.close()
