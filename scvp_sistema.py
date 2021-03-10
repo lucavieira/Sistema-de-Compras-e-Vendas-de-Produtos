@@ -20,26 +20,33 @@ while True:
     if verifica_login(dados_funcionarios(), menu[0], menu[1]):
         print(f'Bem-Vindo {menu[0]} Admin'.center(35))
         print('-' * 35)
-        menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Sair').upper()
+        menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Remover Produtos (RP)', 'Sair').upper()
         if menu_adm == 'CP':
+            print(f'\033[31m{"CADASTRO DE PRODUTOS".center(36)}\033[m')
             print('-' * 35)
-            nome = str(input('Nome do Produto: '))
+            nome = str(input('Nome do Produto: ')).capitalize()
             preco = float(input('Preco do Produto: '))
             quantidade = int(input('Quantidade: '))
             produtos = Produtos(nome, preco, quantidade)
             produtos.cadastro(arquivos['arquivo_produtos'])
+            print(f'\033[32m{nome} cadastrado com sucesso!\033[m')
             print('-' * 35)
         elif menu_adm == 'CF':
+            print(f'\033[31m{"CADASTRO DE FUNCIONARIOS".center(36)}\033[m')
             print('-' * 35)
-            nome = str(input('Nome do Funcionario: '))
+            nome = str(input('Nome do Funcionario: ')).capitalize()
             cpf = int(input('CPF: '))
             senha = str(input('Senha: '))
             cargo = str(input('Cargo [Adm/Vendedor]: '))
             funcionario = Funcionarios(nome, cpf, senha, cargo)
             funcionario.cadastro(arquivos['arquivo_funcionarios'])
             print('-' * 35)
-        else:
+        elif menu_adm == 'RP':
+            produto_excluido = str(input('Qual produto deseja excluir: ')).capitalize()
             print('-' * 35)
+            if existe_produto(dados_produtos(), produto_excluido)[0]:
+                produtos.remover_produtos(arquivos['arquivo_produtos'], produto_excluido)
+        else:
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
             break
@@ -54,6 +61,8 @@ while True:
                 produto = str(input('Qual produto deseja adicionar? ')).capitalize()
                 produto_existe = existe_produto(dados_produtos(), produto)
                 if produto_existe[0]:
+                    print('\033[32mProduto Adicionado com Sucesso\033[m')
+                    print('-' * 35)
                     carrinho.append(produto_existe[1])
                 else:
                     print('-' * 35)

@@ -15,7 +15,6 @@ def cria_arquivo(arquivo):
     except:
         print('Erro ao criar arquivo')
     else:
-        print('Arquivo criado com Sucesso')
         file.close()
         try:
             file = open(arquivo, 'at')

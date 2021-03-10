@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 # Pega os dados dos funcionarios
@@ -26,11 +27,7 @@ def verifica_login(dados, nome, senha):
 def existe_produto(dados, nome_produto):
     for produto in dados:
         if produto['Nome'] == nome_produto and int(produto['Quantidade']) > 0:
-            print('\033[32mProduto Adicionado com Sucesso\033[m')
-            print('-' * 35)
             return True, produto
-        else:
-            return False, nome_produto
 
 
 # Mostra o valor total das compras de um cliente
@@ -60,6 +57,10 @@ def remove_produto(carrinho, produto_removido):
             print('\033[32mProduto removido com sucesso!\033[m')
             print('-' * 35)
             return True, chave
+
+
+def exclui_arquivo(arquivo):
+    os.unlink(arquivo)
 
 
 # Menu para Logar no sistema como admin ou vendedor
