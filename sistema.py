@@ -24,10 +24,14 @@ def verifica_login(dados, nome, senha):
 
 
 # Verifica se o produto está cadastrado e se tem quantidade
-def existe_produto(dados, nome_produto):
-    for produto in dados:
-        if produto['Nome'] == nome_produto and int(produto['Quantidade']) > 0:
-            return True, produto
+def existe(dados, nome):
+    for item in dados:
+        if len(dados[0]) == 3:
+            if item['Nome'] == nome and int(item['Quantidade']) > 0:
+                return True, item
+        else:
+            if item['Nome'] == nome:
+                return True, item
 
 
 # Mostra o valor total das compras de um cliente

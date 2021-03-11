@@ -20,7 +20,7 @@ while True:
     if verifica_login(dados_funcionarios(), menu[0], menu[1]):
         print(f'Bem-Vindo {menu[0]} Admin'.center(35))
         print('-' * 35)
-        menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Remover Produtos (RP)', 'Sair').upper()
+        menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Remover Produtos (RP)', 'Remover Funcionarios (RF)', 'Sair').upper()
         if menu_adm == 'CP':
             print(f'\033[31m{"CADASTRO DE PRODUTOS".center(36)}\033[m')
             print('-' * 35)
@@ -44,8 +44,13 @@ while True:
         elif menu_adm == 'RP':
             produto_excluido = str(input('Qual produto deseja excluir: ')).capitalize()
             print('-' * 35)
-            if existe_produto(dados_produtos(), produto_excluido)[0]:
+            if existe(dados_produtos(), produto_excluido)[0]:
                 produtos.remover_produtos(arquivos['arquivo_produtos'], produto_excluido)
+        elif menu_adm == 'RF':
+            funcionario_excluido = str(input('Qual funcionario deseja excluir: ')).capitalize()
+            print('-' * 35)
+            if existe(dados_funcionarios(), funcionario_excluido)[0]:
+                funcionarios.remover_funcionarios(arquivos['arquivo_funcionarios'], funcionario_excluido)
         elif menu_adm == 'SAIR':
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
@@ -59,7 +64,7 @@ while True:
             produtos.mostrar_produtos(arquivos['arquivo_produtos'])
             produto = str(input('Qual produto deseja adicionar? ')).capitalize()
             quantidade_produto = int(input(f'Quantos {produto} você deseja levar? '))
-            produto_existe = existe_produto(dados_produtos(), produto)
+            produto_existe = existe(dados_produtos(), produto)
             if produto_existe[0]:
                 print('\033[32mProduto Adicionado com Sucesso\033[m')
                 print('-' * 35)
@@ -78,12 +83,11 @@ while True:
             mostrar_carrinho(carrinho)
         elif menu_vendedor == 'FP':
             mostrar_carrinho(carrinho)
-            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto, menu_vendedor)
+            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto)
             print(f'Total R${mostrar_total(carrinho):.2f}')
             print('-' * 35)
             break
         elif menu_vendedor == 'SAIR':
-            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto, menu_vendedor)
             print(f'\033[31m{"ATÉ A PROXIMA".center(36)}\033[m')
             print('-' * 35)
             break
