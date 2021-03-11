@@ -59,7 +59,6 @@ while True:
             produtos.mostrar_produtos(arquivos['arquivo_produtos'])
             produto = str(input('Qual produto deseja adicionar? ')).capitalize()
             quantidade_produto = int(input(f'Quantos {produto} você deseja levar? '))
-            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto, menu_vendedor)
             produto_existe = existe_produto(dados_produtos(), produto)
             if produto_existe[0]:
                 print('\033[32mProduto Adicionado com Sucesso\033[m')
@@ -79,6 +78,7 @@ while True:
             mostrar_carrinho(carrinho)
         elif menu_vendedor == 'FP':
             mostrar_carrinho(carrinho)
+            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto, menu_vendedor)
             print(f'Total R${mostrar_total(carrinho):.2f}')
             print('-' * 35)
             break
