@@ -49,3 +49,15 @@ class Produtos(object):
             novo_produto = Produtos(nome, preco, quantidade)
             novo_produto.cadastro(arquivo)
 
+    def diminui_quantidade(self, arquivo, nome_produto, quantidade_produto):
+        lista_produtos = dados_produtos()
+        exclui_arquivo(arquivo)
+        cria_arquivo(arquivo)
+        for produtos in lista_produtos:
+            nome = str(produtos['Nome'])
+            preco = float(produtos['Preco'][2:])
+            quantidade = int(produtos['Quantidade'])
+            if nome_produto == nome:
+                quantidade -= quantidade_produto
+            produto = Produtos(nome, preco, quantidade)
+            produto.cadastro(arquivo)

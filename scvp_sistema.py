@@ -59,6 +59,8 @@ while True:
             if menu_vendedor == 'AP':
                 produtos.mostrar_produtos(arquivos['arquivo_produtos'])
                 produto = str(input('Qual produto deseja adicionar? ')).capitalize()
+                quantidade_produto = int(input(f'Quantos {produto} você deseja levar? '))
+                produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto)
                 produto_existe = existe_produto(dados_produtos(), produto)
                 if produto_existe[0]:
                     print('\033[32mProduto Adicionado com Sucesso\033[m')
