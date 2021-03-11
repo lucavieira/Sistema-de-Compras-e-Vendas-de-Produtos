@@ -42,7 +42,7 @@ def mostrar_total(carrinho):
 
 
 # Mostra o carrinho de compras, quais produtos foram adicionados
-def mostrar_carrinho(carrinho, quantidade=0):
+def mostrar_carrinho(carrinho):
     print(f'\033[31m{"CARRINHO".center(36)}\033[m')
     print('-' * 35)
     for produto in carrinho:

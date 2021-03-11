@@ -46,7 +46,7 @@ while True:
             print('-' * 35)
             if existe_produto(dados_produtos(), produto_excluido)[0]:
                 produtos.remover_produtos(arquivos['arquivo_produtos'], produto_excluido)
-        else:
+        elif menu_adm == 'SAIR':
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
             break
@@ -54,35 +54,36 @@ while True:
         print(f'Bem-Vindo {menu[0]} Vendedor'.center(35))
         print('-' * 35)
         carrinho = list()
-        while True:
-            menu_vendedor = menu_funcionario('Adicionar Produto ao Carrinho (AP)', 'Remover Produto do Carrinho (RP)', 'Consultar Carrinho (CC)', 'Fechar Pedido (FP)', 'Sair').upper()
-            if menu_vendedor == 'AP':
-                produtos.mostrar_produtos(arquivos['arquivo_produtos'])
-                produto = str(input('Qual produto deseja adicionar? ')).capitalize()
-                quantidade_produto = int(input(f'Quantos {produto} você deseja levar? '))
-                produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto)
-                produto_existe = existe_produto(dados_produtos(), produto)
-                if produto_existe[0]:
-                    print('\033[32mProduto Adicionado com Sucesso\033[m')
-                    print('-' * 35)
-                    carrinho.append(produto_existe[1])
-                else:
-                    print('-' * 35)
-                    print(f'\033[31mProduto {produto_existe[1]} inexistente, consulte a lista de Produtos\033[m')
-                    print('-' * 35)
-            elif menu_vendedor == 'RP':
-                mostrar_carrinho(carrinho)
-                produto_removido = str(input('Qual produto deseja remover? ')).capitalize()
-                produto_remove = remove_produto(carrinho, produto_removido)
-                if produto_remove[0]:
-                    carrinho.pop(produto_remove[1])
-            elif menu_vendedor == 'CC':
-                mostrar_carrinho(carrinho)
-            elif menu_vendedor == 'FP':
-                mostrar_carrinho(carrinho)
-                print(f'Total R${mostrar_total(carrinho):.2f}')
+        menu_vendedor = menu_funcionario('Adicionar Produto ao Carrinho (AP)', 'Remover Produto do Carrinho (RP)', 'Consultar Carrinho (CC)', 'Fechar Pedido (FP)', 'Sair').upper()
+        if menu_vendedor == 'AP':
+            produtos.mostrar_produtos(arquivos['arquivo_produtos'])
+            produto = str(input('Qual produto deseja adicionar? ')).capitalize()
+            quantidade_produto = int(input(f'Quantos {produto} você deseja levar? '))
+            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto, menu_vendedor)
+            produto_existe = existe_produto(dados_produtos(), produto)
+            if produto_existe[0]:
+                print('\033[32mProduto Adicionado com Sucesso\033[m')
                 print('-' * 35)
+                carrinho.append(produto_existe[1])
             else:
-                print(f'\033[31m{"ATÉ A PROXIMA".center(36)}\033[m')
                 print('-' * 35)
-                break
+                print(f'\033[31mProduto {produto_existe[1]} inexistente, consulte a lista de Produtos\033[m')
+                print('-' * 35)
+        elif menu_vendedor == 'RP':
+            mostrar_carrinho(carrinho)
+            produto_removido = str(input('Qual produto deseja remover? ')).capitalize()
+            produto_remove = remove_produto(carrinho, produto_removido)
+            if produto_remove[0]:
+                carrinho.pop(produto_remove[1])
+        elif menu_vendedor == 'CC':
+            mostrar_carrinho(carrinho)
+        elif menu_vendedor == 'FP':
+            mostrar_carrinho(carrinho)
+            print(f'Total R${mostrar_total(carrinho):.2f}')
+            print('-' * 35)
+            break
+        elif menu_vendedor == 'SAIR':
+            produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto, menu_vendedor)
+            print(f'\033[31m{"ATÉ A PROXIMA".center(36)}\033[m')
+            print('-' * 35)
+            break
