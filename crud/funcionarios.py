@@ -51,3 +51,30 @@ class Funcionarios(object):
                 cargo = str(funcionarios['Cargo'])
                 novo_funcionario = Funcionarios(nome, cpf, senha, cargo)
                 novo_funcionario.cadastro(arquivo)
+
+    def alterar_funcionario(self, arquivo, funcionario):
+        lista_funcionarios = dados_funcionarios()
+        exclui_arquivo(arquivo)
+        cria_arquivo(arquivo)
+        for funcionarios in lista_funcionarios:
+            if funcionarios['Nome'] == funcionario:
+                indice_funcionario = str(input('O que deseja alterar:\n(Nome/Cpf/Senha/Cargo)')).capitalize()
+                if indice_funcionario == 'Nome':
+                    novo_nome = str(input('Nome: ')).capitalize()
+                    funcionario_alterado = Funcionarios(novo_nome, int(funcionarios['CPF']), str(funcionarios['Senha']), str(funcionarios['Cargo']))
+                elif indice_funcionario == 'Cpf':
+                    novo_cpf = int(input('CPF: '))
+                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), novo_cpf, str(funcionarios['Senha']), str(funcionarios['Cargo']))
+                elif indice_funcionario == 'Senha':
+                    nova_senha = str(input('Senha: ')).lower()
+                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), nova_senha, str(funcionarios['Cargo']))
+                elif indice_funcionario == 'Cargo':
+                    novo_cargo = str(input('Cargo: ')).capitalize()
+                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), str(funcionarios['Senha']), novo_cargo)
+                else:
+                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), str(funcionarios['Senha']), str(funcionarios['Cargo']))
+                funcionario_alterado.cadastro(arquivo)
+            else:
+                if not funcionarios['Nome'] in dados_funcionarios()[0]['Nome']:
+                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), str(funcionarios['Senha']), str(funcionarios['Cargo']))
+                    funcionario_alterado.cadastro(arquivo)
