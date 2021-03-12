@@ -1,5 +1,3 @@
-from sistema import existe, dados_funcionarios
-
 # Verifica se o arquivo existe
 def existe_arquivo(arquivo):
     try:

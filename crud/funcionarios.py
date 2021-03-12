@@ -36,6 +36,7 @@ class Funcionarios(object):
             print('-' * 35)
             file.close()
 
+    # Função que remove um funcionario do arquivo .csv
     def remover_funcionarios(self, arquivo, funcionario):
         lista_funcionarios = dados_funcionarios()
         for funcionarios in lista_funcionarios:
@@ -52,6 +53,7 @@ class Funcionarios(object):
                 novo_funcionario = Funcionarios(nome, cpf, senha, cargo)
                 novo_funcionario.cadastro(arquivo)
 
+    # Função que altera algum dado do Funcionario
     def alterar_funcionario(self, arquivo, funcionario):
         lista_funcionarios = dados_funcionarios()
         exclui_arquivo(arquivo)

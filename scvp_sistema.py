@@ -1,7 +1,7 @@
 from arquivos import *
 from crud.produtos import *
 from crud.funcionarios import *
-from sistema import menu_login, menu_funcionario, verifica_login, mostrar_carrinho, mostrar_total, remove_produto
+from sistema import menu_login, menu_funcionario, verifica_login, mostrar_carrinho, mostrar_total, remove_produto, existe
 
 # Um dicionario com todos os arquivos
 arquivos = {'arquivo_produtos': 'produtos.csv', 'arquivo_funcionarios': 'funcionarios.csv'}

@@ -63,6 +63,7 @@ def remove_produto(carrinho, produto_removido):
             return True, chave
 
 
+# Exclui arquivo
 def exclui_arquivo(arquivo):
     os.unlink(arquivo)
 

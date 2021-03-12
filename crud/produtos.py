@@ -49,6 +49,7 @@ class Produtos(object):
             novo_produto = Produtos(nome, preco, quantidade)
             novo_produto.cadastro(arquivo)
 
+    # Função Responsavel por diminuir a quantidade de um produto, quando o pedido for adicionado ao carrinho e fechado o pedido
     def diminui_quantidade(self, arquivo, nome_produto, quantidade_produto):
         lista_produtos = dados_produtos()
         exclui_arquivo(arquivo)
@@ -62,6 +63,7 @@ class Produtos(object):
             produto = Produtos(nome, preco, quantidade)
             produto.cadastro(arquivo)
 
+    # Função que altera um produto, caso o nome, preço ou quantidade esteja errado
     def alterar_produto(self, arquivo, produto):
         lista_produtos = dados_produtos()
         exclui_arquivo(arquivo)
@@ -79,8 +81,10 @@ class Produtos(object):
                     nova_quantidade = int(input('Quantidade'))
                     produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), nova_quantidade)
                 else:
-                    produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), int(produtos['Quantidade']))
+                    produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]),
+                                                int(produtos['Quantidade']))
                 produto_alterado.cadastro(arquivo)
             else:
-                produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), int(produtos['Quantidade']))
+                produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]),
+                                            int(produtos['Quantidade']))
                 produto_alterado.cadastro(arquivo)
