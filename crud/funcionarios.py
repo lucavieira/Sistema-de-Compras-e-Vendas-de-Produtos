@@ -1,5 +1,5 @@
-from sistema import dados_funcionarios, exclui_arquivo
-from arquivos import cria_arquivo
+from sistema import dados_funcionarios
+from arquivos import cria_arquivo, exclui_arquivo
 
 
 class Funcionarios(object):

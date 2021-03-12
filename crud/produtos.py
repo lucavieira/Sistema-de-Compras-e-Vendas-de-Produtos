@@ -1,5 +1,5 @@
-from sistema import dados_produtos, exclui_arquivo
-from arquivos import cria_arquivo
+from sistema import dados_produtos
+from arquivos import cria_arquivo, exclui_arquivo
 
 
 class Produtos(object):

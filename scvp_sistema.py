@@ -17,6 +17,9 @@ for arquivo in arquivos.values():
 # Menu Login
 menu = menu_login()
 while True:
+    if len(menu) == 4:
+        funcionarios = Funcionarios(menu[0], menu[2], menu[1], menu[3])
+        funcionarios.cadastro(arquivos['arquivo_funcionarios'])
     if verifica_login(dados_funcionarios(), menu[0], menu[1]):
         print(f'Bem-Vindo {menu[0]} Admin'.center(35))
         print('-' * 35)

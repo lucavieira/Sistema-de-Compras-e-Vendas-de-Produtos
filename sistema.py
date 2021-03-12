@@ -1,5 +1,4 @@
 import csv
-import os
 
 
 # Pega os dados dos funcionarios
@@ -63,20 +62,25 @@ def remove_produto(carrinho, produto_removido):
             return True, chave
 
 
-# Exclui arquivo
-def exclui_arquivo(arquivo):
-    os.unlink(arquivo)
-
-
 # Menu para Logar no sistema como admin ou vendedor
 def menu_login():
-    print('-' * 35)
-    print(f'{"LOGIN".center(35)}')
-    print('-' * 35)
-    nome = str(input('Nome: ')).capitalize()
-    senha = str(input('Senha: ')).lower()
-    print('-' * 35)
-    return nome, senha
+    print('-' * 100)
+    if len(dados_funcionarios()) == 0:
+        print('Olá, bem-vindo ao sistema de vendas, essa é sua primeira vez, então cadastre um login de Admin\n'
+              'para poder utilizar o sistema por completo.')
+        print('-' * 100)
+        nome = str(input('Nome: ')).capitalize()
+        senha = str(input('Senha: ')).lower()
+        cpf = int(input('CPF: '))
+        print('-' * 35)
+        return nome, senha, cpf, 'Admin'
+    else:
+        print(f'{"LOGIN".center(35)}')
+        print('-' * 35)
+        nome = str(input('Nome: ')).capitalize()
+        senha = str(input('Senha: ')).lower()
+        print('-' * 35)
+        return nome, senha
 
 
 # Menu com as opções de admin e vendedor

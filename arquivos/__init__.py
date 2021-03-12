@@ -1,3 +1,6 @@
+import os
+
+
 # Verifica se o arquivo existe
 def existe_arquivo(arquivo):
     try:
@@ -26,5 +29,9 @@ def cria_arquivo(arquivo):
                 file.close()
             else:
                 file.write('Nome,CPF,Senha,Cargo\n')
-                file.write('Lucas,62028011319,admin_lucas,Admin\n')
                 file.close()
+
+
+# Exclui arquivo
+def exclui_arquivo(arquivo):
+    os.unlink(arquivo)
