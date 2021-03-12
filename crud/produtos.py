@@ -61,3 +61,26 @@ class Produtos(object):
                 quantidade -= quantidade_produto
             produto = Produtos(nome, preco, quantidade)
             produto.cadastro(arquivo)
+
+    def alterar_produto(self, arquivo, produto):
+        lista_produtos = dados_produtos()
+        exclui_arquivo(arquivo)
+        cria_arquivo(arquivo)
+        for produtos in lista_produtos:
+            if produtos['Nome'] == produto:
+                indice_produto = str(input('O que deseja alterar:\n(Nome/Preco/Quantidade): ')).capitalize()
+                if indice_produto == 'Nome':
+                    novo_nome = str(input('Nome: ')).capitalize()
+                    produto_alterado = Produtos(novo_nome, float(produtos['Preco'][2:]), int(produtos['Quantidade']))
+                elif indice_produto == 'Preco':
+                    novo_preco = float(input('Preco: R$'))
+                    produto_alterado = Produtos(str(produtos['Nome']), novo_preco, int(produtos['Quantidade']))
+                elif indice_produto == 'Quantidade':
+                    nova_quantidade = int(input('Quantidade'))
+                    produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), nova_quantidade)
+                else:
+                    produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), int(produtos['Quantidade']))
+                produto_alterado.cadastro(arquivo)
+            else:
+                produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), int(produtos['Quantidade']))
+                produto_alterado.cadastro(arquivo)

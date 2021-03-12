@@ -1,7 +1,7 @@
 from arquivos import *
 from crud.produtos import *
 from crud.funcionarios import *
-from sistema import *
+from sistema import menu_login, menu_funcionario, verifica_login, mostrar_carrinho, mostrar_total, remove_produto
 
 # Um dicionario com todos os arquivos
 arquivos = {'arquivo_produtos': 'produtos.csv', 'arquivo_funcionarios': 'funcionarios.csv'}
@@ -20,7 +20,7 @@ while True:
     if verifica_login(dados_funcionarios(), menu[0], menu[1]):
         print(f'Bem-Vindo {menu[0]} Admin'.center(35))
         print('-' * 35)
-        menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Remover Produtos (RP)', 'Remover Funcionarios (RF)', 'Sair').upper()
+        menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Remover Produtos (RP)', 'Remover Funcionarios (RF)', 'Alterar Produto (AP)', 'Sair').upper()
         if menu_adm == 'CP':
             print(f'\033[31m{"CADASTRO DE PRODUTOS".center(36)}\033[m')
             print('-' * 35)
@@ -51,6 +51,10 @@ while True:
             print('-' * 35)
             if existe(dados_funcionarios(), funcionario_excluido)[0]:
                 funcionarios.remover_funcionarios(arquivos['arquivo_funcionarios'], funcionario_excluido)
+        elif menu_adm == 'AP':
+            produto_alterado = str(input('Qual produto deseja alterar: ')).capitalize()
+            if existe(dados_produtos(), produto_alterado)[0]:
+                produtos.alterar_produto(arquivos['arquivo_produtos'], produto_alterado)
         elif menu_adm == 'SAIR':
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
