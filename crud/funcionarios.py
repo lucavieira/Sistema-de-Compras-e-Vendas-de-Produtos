@@ -1,5 +1,6 @@
-from sistema import dados_funcionarios
+from sistema import dados_funcionarios, existe
 from arquivos import cria_arquivo, exclui_arquivo
+import pandas as pd
 
 
 class Funcionarios(object):
@@ -55,28 +56,28 @@ class Funcionarios(object):
 
     # Função que altera algum dado do Funcionario
     def alterar_funcionario(self, arquivo, funcionario):
-        lista_funcionarios = dados_funcionarios()
-        exclui_arquivo(arquivo)
-        cria_arquivo(arquivo)
-        for funcionarios in lista_funcionarios:
-            if funcionarios['Nome'] == funcionario:
-                indice_funcionario = str(input('O que deseja alterar:\n(Nome/Cpf/Senha/Cargo)')).capitalize()
+        lista_funcionarios = pd.read_csv(arquivo)
+        for indice in lista_funcionarios.index:
+            if existe(dados_funcionarios(), funcionario)[0]:
+                indice_funcionario = str(input('\nO que deseja alterar:\n(Nome/Cpf/Senha/Cargo) -> ')).capitalize()
                 if indice_funcionario == 'Nome':
                     novo_nome = str(input('Nome: ')).capitalize()
-                    funcionario_alterado = Funcionarios(novo_nome, int(funcionarios['CPF']), str(funcionarios['Senha']), str(funcionarios['Cargo']))
+                    lista_funcionarios.loc[indice, indice_funcionario] = novo_nome
                 elif indice_funcionario == 'Cpf':
                     novo_cpf = int(input('CPF: '))
-                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), novo_cpf, str(funcionarios['Senha']), str(funcionarios['Cargo']))
+                    lista_funcionarios.loc[indice, indice_funcionario] = novo_cpf
                 elif indice_funcionario == 'Senha':
-                    nova_senha = str(input('Senha: ')).lower()
-                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), nova_senha, str(funcionarios['Cargo']))
+                    nova_senha = int(input('Senha: '))
+                    lista_funcionarios.loc[indice, indice_funcionario] = nova_senha
                 elif indice_funcionario == 'Cargo':
-                    novo_cargo = str(input('Cargo: ')).capitalize()
-                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), str(funcionarios['Senha']), novo_cargo)
+                    novo_cargo = int(input('Cargo: '))
+                    lista_funcionarios.loc[indice, indice_funcionario] = novo_cargo
                 else:
-                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), str(funcionarios['Senha']), str(funcionarios['Cargo']))
-                funcionario_alterado.cadastro(arquivo)
+                    print('-' * 35)
+                    print('\033[31mNenhum dado foi alterado!\033[m')
+                    print('-' * 35)
+                lista_funcionarios.to_csv(arquivo, index=False)
             else:
-                if not funcionarios['Nome'] in dados_funcionarios()[0]['Nome']:
-                    funcionario_alterado = Funcionarios(str(funcionarios['Nome']), int(funcionarios['CPF']), str(funcionarios['Senha']), str(funcionarios['Cargo']))
-                    funcionario_alterado.cadastro(arquivo)
+                print('-' * 35)
+                print('\033[31mNenhum funcionario com este Nome foi encontrado!\033[m')
+                print('-' * 35)
