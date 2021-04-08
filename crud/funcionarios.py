@@ -1,5 +1,3 @@
-from sistema import dados_funcionarios, existe
-from arquivos import cria_arquivo, exclui_arquivo
 import pandas as pd
 
 
@@ -38,27 +36,18 @@ class Funcionarios(object):
             file.close()
 
     # Função que remove um funcionario do arquivo .csv
-    def remover_funcionarios(self, arquivo, funcionario):
-        lista_funcionarios = dados_funcionarios()
-        for funcionarios in lista_funcionarios:
-            if funcionario == funcionarios['Nome']:
-                lista_funcionarios.remove(funcionarios)
-                exclui_arquivo(arquivo)
-        cria_arquivo(arquivo)
-        for funcionarios in lista_funcionarios:
-            if not funcionarios['Nome'] in dados_funcionarios()[0]['Nome']:
-                nome = str(funcionarios['Nome'])
-                cpf = int(funcionarios['CPF'])
-                senha = str(funcionarios['Senha'])
-                cargo = str(funcionarios['Cargo'])
-                novo_funcionario = Funcionarios(nome, cpf, senha, cargo)
-                novo_funcionario.cadastro(arquivo)
+    def remover_funcionario(self, arquivo, funcionario):
+        lista_funcionarios = pd.read_csv(arquivo)
+        for indice in lista_funcionarios.index:
+            if lista_funcionarios.loc[indice, 'Nome'] == funcionario:
+                lista_funcionarios.drop(indice, inplace=True)
+            lista_funcionarios.to_csv(arquivo, index=False)
 
     # Função que altera algum dado do Funcionario
     def alterar_funcionario(self, arquivo, funcionario):
         lista_funcionarios = pd.read_csv(arquivo)
         for indice in lista_funcionarios.index:
-            if existe(dados_funcionarios(), funcionario)[0]:
+            if lista_funcionarios.loc[indice, 'Nome'] == funcionario:
                 indice_funcionario = str(input('\nO que deseja alterar:\n(Nome/Cpf/Senha/Cargo) -> ')).capitalize()
                 if indice_funcionario == 'Nome':
                     novo_nome = str(input('Nome: ')).capitalize()
@@ -77,7 +66,3 @@ class Funcionarios(object):
                     print('\033[31mNenhum dado foi alterado!\033[m')
                     print('-' * 35)
                 lista_funcionarios.to_csv(arquivo, index=False)
-            else:
-                print('-' * 35)
-                print('\033[31mNenhum funcionario com este Nome foi encontrado!\033[m')
-                print('-' * 35)

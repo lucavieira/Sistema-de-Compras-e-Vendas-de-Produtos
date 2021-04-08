@@ -20,6 +20,8 @@ while True:
     if len(menu) == 4:
         funcionarios = Funcionarios(menu[0], menu[2], menu[1], menu[3])
         funcionarios.cadastro(arquivos['arquivo_funcionarios'])
+        print('Por gentileza, reinicie o programa para atualizar os dados.')
+        break
     if verifica_login(dados_funcionarios(), menu[0], menu[1]):
         print(f'Bem-Vindo {menu[0]} Admin'.center(35))
         print('-' * 35)
@@ -50,10 +52,10 @@ while True:
             if existe(dados_produtos(), produto_excluido)[0]:
                 produtos.remover_produtos(arquivos['arquivo_produtos'], produto_excluido)
         elif menu_adm == 'RF':
+            funcionarios.mostrar_funcionarios(arquivos['arquivo_funcionarios'])
             funcionario_excluido = str(input('Qual funcionario deseja excluir: ')).capitalize()
             print('-' * 35)
-            if existe(dados_funcionarios(), funcionario_excluido)[0]:
-                funcionarios.remover_funcionarios(arquivos['arquivo_funcionarios'], funcionario_excluido)
+            funcionarios.remover_funcionario(arquivos['arquivo_funcionarios'], funcionario_excluido)
         elif menu_adm == 'AP':
             produtos.mostrar_produtos(arquivos['arquivo_produtos'])
             produto_alterado = str(input('Qual produto deseja alterar: ')).capitalize()
@@ -62,8 +64,7 @@ while True:
         elif menu_adm == 'AF':
             funcionarios.mostrar_funcionarios(arquivos['arquivo_funcionarios'])
             funcionario_alterado = str(input('Qual funcionario deseja alterar: ')).capitalize()
-            if existe(dados_funcionarios(), funcionario_alterado)[0]:
-                funcionarios.alterar_funcionario(arquivos['arquivo_funcionarios'], funcionario_alterado)
+            funcionarios.alterar_funcionario(arquivos['arquivo_funcionarios'], funcionario_alterado)
         elif menu_adm == 'SAIR':
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
