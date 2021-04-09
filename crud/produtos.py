@@ -17,7 +17,7 @@ class Produtos(object):
             print('Erro ao abrir arquivo')
         else:
             try:
-                file.write(f'{self.nome_produto},R${self.preco_produto:0.2f},{self.quantidade_produto}\n')
+                file.write(f'{self.nome_produto},R${self.preco_produto:.2f},{self.quantidade_produto}\n')
             except:
                 print('Erro ao cadastrar produto!')
             else:
@@ -59,26 +59,21 @@ class Produtos(object):
 
     # Função que altera um produto, caso o nome, preço ou quantidade esteja errado
     def alterar_produto(self, arquivo, produto):
-        lista_produtos = dados_produtos()
-        exclui_arquivo(arquivo)
-        cria_arquivo(arquivo)
-        for produtos in lista_produtos:
-            if produtos['Nome'] == produto:
+        lista_produtos = pd.read_csv(arquivo)
+        for indice in lista_produtos.index:
+            if lista_produtos.loc[indice, 'Nome'] == produto:
                 indice_produto = str(input('O que deseja alterar:\n(Nome/Preco/Quantidade): ')).capitalize()
                 if indice_produto == 'Nome':
                     novo_nome = str(input('Nome: ')).capitalize()
-                    produto_alterado = Produtos(novo_nome, float(produtos['Preco'][2:]), int(produtos['Quantidade']))
+                    lista_produtos.loc[indice, indice_produto] = novo_nome
                 elif indice_produto == 'Preco':
                     novo_preco = float(input('Preco: R$'))
-                    produto_alterado = Produtos(str(produtos['Nome']), novo_preco, int(produtos['Quantidade']))
+                    lista_produtos.loc[indice, indice_produto] = f'R${novo_preco:.2f}'
                 elif indice_produto == 'Quantidade':
-                    nova_quantidade = int(input('Quantidade'))
-                    produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]), nova_quantidade)
+                    nova_quantidade = int(input('Quantidade: '))
+                    lista_produtos.loc[indice, indice_produto] = nova_quantidade
                 else:
-                    produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]),
-                                                int(produtos['Quantidade']))
-                produto_alterado.cadastro(arquivo)
-            else:
-                produto_alterado = Produtos(str(produtos['Nome']), float(produtos['Preco'][2:]),
-                                            int(produtos['Quantidade']))
-                produto_alterado.cadastro(arquivo)
+                    print('-' * 35)
+                    print('\033[31mNenhum dado foi alterado\033[m')
+                    print('-' * 35)
+                lista_produtos.to_csv(arquivo, index=False)
