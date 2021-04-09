@@ -1,5 +1,6 @@
 from sistema import dados_produtos
 from arquivos import cria_arquivo, exclui_arquivo
+import pandas as pd
 
 
 class Produtos(object):
@@ -36,18 +37,11 @@ class Produtos(object):
             file.close()
 
     def remover_produtos(self, arquivo, produto):
-        lista_produtos = dados_produtos()
-        for produtos in lista_produtos:
-            if produto == produtos['Nome']:
-                lista_produtos.remove(produtos)
-                exclui_arquivo(arquivo)
-        cria_arquivo(arquivo)
-        for produtos in lista_produtos:
-            nome = str(produtos['Nome'])
-            preco = float(produtos['Preco'][2:])
-            quantidade = int(produtos['Quantidade'])
-            novo_produto = Produtos(nome, preco, quantidade)
-            novo_produto.cadastro(arquivo)
+        lista_produtos = pd.read_csv(arquivo)
+        for indice in lista_produtos.index:
+            if lista_produtos.loc[indice, 'Nome'] == produto:
+                lista_produtos.drop(indice, inplace=True)
+            lista_produtos.to_csv(arquivo, index=False)
 
     # Função Responsavel por diminuir a quantidade de um produto, quando o pedido for adicionado ao carrinho e fechado o pedido
     def diminui_quantidade(self, arquivo, nome_produto, quantidade_produto):

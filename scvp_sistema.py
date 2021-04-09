@@ -1,7 +1,8 @@
 from arquivos import *
 from crud.produtos import *
 from crud.funcionarios import *
-from sistema import menu_login, menu_funcionario, verifica_login, mostrar_carrinho, mostrar_total, remove_produto, existe
+from sistema import menu_login, menu_funcionario, verifica_login, mostrar_carrinho, mostrar_total, remove_produto,\
+    existe, dados_funcionarios, dados_produtos
 
 # Um dicionario com todos os arquivos
 arquivos = {'arquivo_produtos': 'produtos.csv', 'arquivo_funcionarios': 'funcionarios.csv'}
@@ -47,6 +48,7 @@ while True:
             funcionario.cadastro(arquivos['arquivo_funcionarios'])
             print('-' * 35)
         elif menu_adm == 'RP':
+            produtos.mostrar_produtos(arquivos['arquivo_produtos'])
             produto_excluido = str(input('Qual produto deseja excluir: ')).capitalize()
             print('-' * 35)
             if existe(dados_produtos(), produto_excluido)[0]:
@@ -55,7 +57,8 @@ while True:
             funcionarios.mostrar_funcionarios(arquivos['arquivo_funcionarios'])
             funcionario_excluido = str(input('Qual funcionario deseja excluir: ')).capitalize()
             print('-' * 35)
-            funcionarios.remover_funcionario(arquivos['arquivo_funcionarios'], funcionario_excluido)
+            if existe(dados_funcionarios(), funcionario_excluido)[0]:
+                funcionarios.remover_funcionario(arquivos['arquivo_funcionarios'], funcionario_excluido)
         elif menu_adm == 'AP':
             produtos.mostrar_produtos(arquivos['arquivo_produtos'])
             produto_alterado = str(input('Qual produto deseja alterar: ')).capitalize()
@@ -64,7 +67,8 @@ while True:
         elif menu_adm == 'AF':
             funcionarios.mostrar_funcionarios(arquivos['arquivo_funcionarios'])
             funcionario_alterado = str(input('Qual funcionario deseja alterar: ')).capitalize()
-            funcionarios.alterar_funcionario(arquivos['arquivo_funcionarios'], funcionario_alterado)
+            if existe(dados_funcionarios(), funcionario_alterado)[0]:
+                funcionarios.alterar_funcionario(arquivos['arquivo_funcionarios'], funcionario_alterado)
         elif menu_adm == 'SAIR':
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
