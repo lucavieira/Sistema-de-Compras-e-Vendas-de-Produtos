@@ -1,5 +1,3 @@
-from sistema import dados_produtos
-from arquivos import cria_arquivo, exclui_arquivo
 import pandas as pd
 
 

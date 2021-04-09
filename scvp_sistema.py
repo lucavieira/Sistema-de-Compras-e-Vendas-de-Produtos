@@ -24,7 +24,7 @@ while True:
         funcionarios.cadastro(arquivos['arquivo_funcionarios'])
         print('Por gentileza, reinicie o programa para atualizar os dados.')
         break
-    if verifica_login(dados_funcionarios(), menu[0], menu[1]):
+    if verifica_login(dados_funcionarios(), menu[0], menu[1]) == 'Admin':
         print(f'Bem-Vindo {menu[0]} Admin'.center(35))
         print('-' * 35)
         menu_adm = menu_funcionario('Cadastrar Produtos (CP)', 'Cadastrar Funcionarios (CF)', 'Remover Produtos (RP)', 'Remover Funcionarios (RF)', 'Alterar Produto (AP)', 'Alterar Funcionario (AF)', 'Sair').upper()
@@ -74,7 +74,7 @@ while True:
             print(f'{"ATÉ MAIS".center(35)}')
             print('-' * 35)
             break
-    else:
+    elif verifica_login(dados_funcionarios(), menu[0], menu[1]) == 'Vendedor':
         print(f'Bem-Vindo {menu[0]} Vendedor'.center(35))
         print('-' * 35)
         menu_vendedor = menu_funcionario('Adicionar Produto ao Carrinho (AP)', 'Remover Produto do Carrinho (RP)', 'Consultar Carrinho (CC)', 'Fechar Pedido (FP)', 'Sair').upper()
@@ -82,7 +82,7 @@ while True:
             produtos.mostrar_produtos(arquivos['arquivo_produtos'])
             produto = str(input('Qual produto deseja adicionar? ')).capitalize()
             quantidade_produto = int(input(f'Quantos {produto} você deseja levar? '))
-            produto_existe = existe(dados_produtos(), produto)
+            produto_existe = existe(dados_produtos(), produto, quantidade_produto)
             if produto_existe[0]:
                 print('\033[32mProduto Adicionado com Sucesso\033[m')
                 print('-' * 35)
@@ -109,3 +109,5 @@ while True:
             print(f'\033[31m{"ATÉ A PROXIMA".center(36)}\033[m')
             print('-' * 35)
             break
+    else:
+        print('Login/Senha incorretos!')

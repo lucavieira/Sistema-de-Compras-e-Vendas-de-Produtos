@@ -17,16 +17,18 @@ def dados_produtos():
 def verifica_login(dados, nome, senha):
     for funcionario in dados:
         if funcionario['Nome'] == nome and funcionario['Senha'] == senha and funcionario['Cargo'] == 'Admin':
-            return True
+            return 'Admin'
+        elif funcionario['Nome'] == nome and funcionario['Senha'] == senha and funcionario['Cargo'] == 'Vendedor':
+            return 'Vendedor'
         else:
             return False
 
 
 # Verifica se o produto está cadastrado e se tem quantidade
-def existe(dados, nome):
+def existe(dados, nome, quantidade_produto=0):
     for item in dados:
         if len(dados[0]) == 3:
-            if item['Nome'] == nome and int(item['Quantidade']) > 0:
+            if item['Nome'] == nome and int(item['Quantidade']) >= quantidade_produto:
                 return True, item
         else:
             if item['Nome'] == nome:
