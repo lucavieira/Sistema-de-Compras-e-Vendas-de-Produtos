@@ -34,22 +34,21 @@ def existe(dados, nome):
 
 
 # Mostra o valor total das compras de um cliente
-def mostrar_total(carrinho):
+def mostrar_total(carrinho, quantidade_produto):
     total = 0
     print(f'\033[31m{"TOTAL".center(35)}\033[m')
-    print('-' * 35)
     for produto in carrinho:
-        total += float(produto['Preco'][2:])
-        return total
+        total += (float(produto['Preco'][2:]) * quantidade_produto)
     print('-' * 35)
+    return total
 
 
 # Mostra o carrinho de compras, quais produtos foram adicionados
-def mostrar_carrinho(carrinho):
+def mostrar_carrinho(carrinho, quantidade_produto):
     print(f'\033[31m{"CARRINHO".center(36)}\033[m')
     print('-' * 35)
     for produto in carrinho:
-        print(produto['Nome'], produto['Preco'])
+        print(produto['Nome'], produto['Preco'], quantidade_produto)
     print('-' * 35)
 
 

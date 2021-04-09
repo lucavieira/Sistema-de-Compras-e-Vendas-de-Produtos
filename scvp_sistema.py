@@ -16,6 +16,7 @@ for arquivo in arquivos.values():
         cria_arquivo(arquivo)
 
 # Menu Login
+carrinho = list()
 menu = menu_login()
 while True:
     if len(menu) == 4:
@@ -76,7 +77,6 @@ while True:
     else:
         print(f'Bem-Vindo {menu[0]} Vendedor'.center(35))
         print('-' * 35)
-        carrinho = list()
         menu_vendedor = menu_funcionario('Adicionar Produto ao Carrinho (AP)', 'Remover Produto do Carrinho (RP)', 'Consultar Carrinho (CC)', 'Fechar Pedido (FP)', 'Sair').upper()
         if menu_vendedor == 'AP':
             produtos.mostrar_produtos(arquivos['arquivo_produtos'])
@@ -92,17 +92,17 @@ while True:
                 print(f'\033[31mProduto {produto_existe[1]} inexistente, consulte a lista de Produtos\033[m')
                 print('-' * 35)
         elif menu_vendedor == 'RP':
-            mostrar_carrinho(carrinho)
+            mostrar_carrinho(carrinho, quantidade_produto)
             produto_removido = str(input('Qual produto deseja remover? ')).capitalize()
             produto_remove = remove_produto(carrinho, produto_removido)
             if produto_remove[0]:
                 carrinho.pop(produto_remove[1])
         elif menu_vendedor == 'CC':
-            mostrar_carrinho(carrinho)
+            mostrar_carrinho(carrinho, quantidade_produto)
         elif menu_vendedor == 'FP':
-            mostrar_carrinho(carrinho)
+            mostrar_carrinho(carrinho, quantidade_produto)
             produtos.diminui_quantidade(arquivos['arquivo_produtos'], produto, quantidade_produto)
-            print(f'Total R${mostrar_total(carrinho):.2f}')
+            print(f'Total R${mostrar_total(carrinho, quantidade_produto):.2f}')
             print('-' * 35)
             break
         elif menu_vendedor == 'SAIR':

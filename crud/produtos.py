@@ -45,17 +45,11 @@ class Produtos(object):
 
     # Função Responsavel por diminuir a quantidade de um produto, quando o pedido for adicionado ao carrinho e fechado o pedido
     def diminui_quantidade(self, arquivo, nome_produto, quantidade_produto):
-        lista_produtos = dados_produtos()
-        exclui_arquivo(arquivo)
-        cria_arquivo(arquivo)
-        for produtos in lista_produtos:
-            nome = str(produtos['Nome'])
-            preco = float(produtos['Preco'][2:])
-            quantidade = int(produtos['Quantidade'])
-            if nome_produto == nome:
-                quantidade -= quantidade_produto
-            produto = Produtos(nome, preco, quantidade)
-            produto.cadastro(arquivo)
+        lista_produtos = pd.read_csv(arquivo)
+        for indice in lista_produtos.index:
+            if lista_produtos.loc[indice, 'Nome'] == nome_produto:
+                lista_produtos.loc[indice, 'Quantidade'] -= quantidade_produto
+            lista_produtos.to_csv(arquivo, index=False)
 
     # Função que altera um produto, caso o nome, preço ou quantidade esteja errado
     def alterar_produto(self, arquivo, produto):
